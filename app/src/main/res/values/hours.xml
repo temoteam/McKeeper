@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="dec2018">167</integer>
+    <integer name="jan2019">136</integer>
+    <integer name="feb2019">159</integer>
+    <integer name="mar2019">159</integer>
+    <integer name="apr2019">175</integer>
+    <integer name="may2019">143</integer>
+    <integer name="jun2019">151</integer>
+    <integer name="jul2019">184</integer>
+    <integer name="avg2019">176</integer>
+    <integer name="sep2019">168</integer>
+    <integer name="oct2019">184</integer>
+    <integer name="nov2019">160</integer>
+    <integer name="dec2019">175</integer>
+</resources>
