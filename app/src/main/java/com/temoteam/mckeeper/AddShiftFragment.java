@@ -2,7 +2,9 @@ package com.temoteam.mckeeper;
 
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -117,6 +119,7 @@ public class AddShiftFragment extends Fragment {
                         doRecount(2);
                         ((MainActivity) getActivity()).onNavigationItemSelected(1);
 
+
                     }
                 }
         );
@@ -169,8 +172,11 @@ public class AddShiftFragment extends Fragment {
                 allMinute = 60 + allMinute;
             }
 
+            SharedPreferences myPreferences
+                    = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            double rate = (double) myPreferences.getInt("rate", 0) / 60;
             int allTime = allMinute + allHour * 60;
-            float allMoney = allTime * Float.parseFloat("2.6825");
+            float allMoney = Float.parseFloat(allTime * rate + "");
 
             textAll.setText(date + " вы отработали " + allHour + " часов " + allMinute + " минут. И Заработали " + allMoney + " р.");
 

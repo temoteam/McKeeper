@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Date;
@@ -26,9 +27,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startFragment = new StartFragment();
-        addShiftFragment = new AddShiftFragment();
-        initialFragment = new InitialFragment();
+
 
         Date date = new Date();
         nowMonth = date.toString().split(" ")[1];
@@ -72,7 +71,9 @@ public class MainActivity extends FragmentActivity {
         k = 0;
 
         android.app.FragmentTransaction ftrans = getFragmentManager().beginTransaction();
-
+        startFragment = new StartFragment();
+        addShiftFragment = new AddShiftFragment();
+        initialFragment = new InitialFragment();
         if (item == 1) {
             ftrans.add(R.id.container, startFragment).replace(R.id.container, startFragment);
 
@@ -100,14 +101,34 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-    public int getAllMoney(String month) {
+    public int getAllMoney(String month, int i) {
         int money = 0;
-        Cursor myCursor =
-                myDB.rawQuery("select allMoney from shifts" + month, null);
-        while (myCursor.moveToNext()) {
-            money = myCursor.getInt(0) + money;
+        if (i == 11) {
+            Cursor myCursor =
+                    myDB.rawQuery("select date, allMoney from shifts" + month, null);
+            int k = 0;
+            while (myCursor.moveToNext()) {
+                int z = Integer.parseInt(myCursor.getString(0).split("\\.")[0]);
+                if (z > 14) {
+                    Log.i("kekek", myCursor.getString(1));
+                    money = myCursor.getInt(1) + money;
+                }
+            }
+            myCursor.close();
         }
-        myCursor.close();
+        if (i == 26) {
+            Cursor myCursor =
+                    myDB.rawQuery("select date, allMoney from shifts" + month, null);
+
+            while (myCursor.moveToNext()) {
+                int z = Integer.parseInt(myCursor.getString(0).split("\\.")[0]);
+                if (z < 15) {
+                    Log.i("kekek", myCursor.getString(1));
+                    money = myCursor.getInt(1) + money;
+                }
+            }
+            myCursor.close();
+        }
         return money;
     }
 

@@ -21,7 +21,9 @@ import java.util.Date;
 public class StartFragment extends Fragment {
 
     private int hours;
-    private int money;
+
+    private int money11;
+    private int money26;
 
     public StartFragment() {
         // Required empty public constructor
@@ -55,15 +57,19 @@ public class StartFragment extends Fragment {
         String nowMonth = date.toString().split(" ")[1];
 
         hours = ((MainActivity) getActivity()).getAllHours(nowMonth);
-        money = ((MainActivity) getActivity()).getAllMoney(nowMonth);
+        money11 = ((MainActivity) getActivity()).getAllMoney(nowMonth, 11);
+        money26 = ((MainActivity) getActivity()).getAllMoney(nowMonth, 26);
+
 
         TextView textHours = getView().findViewById(R.id.textHours);
         TextView textMoneyAv = getView().findViewById(R.id.textMoneyAv);
         TextView textMoneyZp = getView().findViewById(R.id.textMoneyZp);
+        int resID = getResources().getIdentifier(nowMonth, "integer", getActivity().getPackageName());
+        //getActivity().getResources(R.integer.Jan);
 
-        textHours.setText("В этом месяце вы отработали:" + hours / 60 + " часов и " + hours % 60 + " минут.");
-        textMoneyAv.setText("В аванс придет: ");
-        textMoneyZp.setText("В зарплату придет: " + money);
+        textHours.setText("В " + nowMonth + " вы отработали:" + hours / 60 + " часов и " + hours % 60 + " минут. До переработок еще " + (getResources().getInteger(resID) - hours / 60) + "часов.");
+        textMoneyAv.setText("В аванс придет: " + money26);
+        textMoneyZp.setText("В зарплату придет: " + money11);
     }
 
 
