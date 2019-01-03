@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">McKeeper</string>
+    <string name="action_settings">Настройки</string>
+    <string name="Date">Дата</string>
+    <string name="timeStart">Время начала</string>
+    <string name="timeEnd">Время окончания</string>
+    <string name="isBreak">Брейк</string>
+    <string name="pyatn">Пятнашки</string>
+    <string name="recount">Посчитать</string>
+    <string name="save">Сохранить</string>
+    <string name="rate">Твоя ставка</string>
+    <string name="rest">Твой ресторан</string>
+    <string name="previous">Назад</string>
+    <string name="next">Вперед</string>
+    <string name="number">Твой номер</string>
+    <string name="addShift">Добавить смену</string>
+</resources>

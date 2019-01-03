@@ -20,6 +20,7 @@ import android.widget.EditText;
 public class InitialFragment extends Fragment {
     private EditText editRest;
     private EditText editRate;
+    private EditText editNumber;
 
     public InitialFragment() {
         // Required empty public constructor
@@ -40,6 +41,7 @@ public class InitialFragment extends Fragment {
 
         editRest = view.findViewById(R.id.editRest);
         editRate = view.findViewById(R.id.editRate);
+        editNumber = view.findViewById(R.id.editNumber);
         Button save = view.findViewById(R.id.buttonSaveInitial);
 
 
@@ -47,16 +49,22 @@ public class InitialFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String rest = editRest.getText().toString();
-                        String rate = editRate.getText().toString();
-                        int rateInt = Integer.parseInt(rate);
-                        SharedPreferences myPreferences
-                                = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                        SharedPreferences.Editor myEditor = myPreferences.edit();
-                        myEditor.putString("rest", rest);
-                        myEditor.putInt("rate", rateInt);
-                        myEditor.apply();
+                        if (!(editRest.getText().toString().equals("")) && !(editRate.getText().toString().equals("")) && !(editNumber.getText().toString().equals(""))) {
+                            String rest = editRest.getText().toString();
+                            String rate = editRate.getText().toString();
+                            String number = editNumber.getText().toString();
+                            int rateInt = Integer.parseInt(rate);
+                            int numberInt = Integer.parseInt(number);
+                            SharedPreferences myPreferences
+                                    = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                            SharedPreferences.Editor myEditor = myPreferences.edit();
+                            myEditor.putString("rest", rest);
+                            myEditor.putInt("rate", rateInt);
+                            myEditor.putInt("number", numberInt);
+                            myEditor.apply();
 
+
+                        }
                         ((MainActivity) getActivity()).onNavigationItemSelected(1);
                     }
                 }

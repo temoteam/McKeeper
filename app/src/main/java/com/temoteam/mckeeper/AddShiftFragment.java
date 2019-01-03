@@ -174,7 +174,7 @@ public class AddShiftFragment extends Fragment {
 
             SharedPreferences myPreferences
                     = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            double rate = (double) myPreferences.getInt("rate", 0) / 60;
+            double rate = (double) myPreferences.getInt("rate", 185) / 60;
             int allTime = allMinute + allHour * 60;
             float allMoney = Float.parseFloat(allTime * rate + "");
 

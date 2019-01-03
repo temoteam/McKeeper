@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">McKeeper</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main2">Main2Activity</string>
     <string name="action_settings">Settings</string>
 
 
@@ -17,4 +14,6 @@
     <string name="rest">Your restaurant</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
+    <string name="number">Your number</string>
+    <string name="addShift">Add shift</string>
 </resources>
