@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.Date;
@@ -47,6 +49,27 @@ public class MainActivity extends FragmentActivity {
             onNavigationItemSelected(1);
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        android.app.FragmentTransaction fTrans = getFragmentManager().beginTransaction();
+        if (id == R.id.action_info) {
+
+            fTrans = getFragmentManager().beginTransaction();
+            fTrans.replace(R.id.container, new InfoFragment());
+            fTrans.addToBackStack(null);
+            fTrans.commit();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
