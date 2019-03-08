@@ -34,7 +34,7 @@ public class MainActivity extends FragmentActivity {
 
         myDB = openOrCreateDatabase("my.db", MODE_PRIVATE, null);
         myDB.execSQL(
-                "CREATE TABLE IF NOT EXISTS shifts" + nowMonth + " (date VARCHAR(200), allTime INT, lunch INT, allMoney FLOAT)"
+                "CREATE TABLE IF NOT EXISTS shifts" + nowMonth + " (date VARCHAR(200), allTime INT, lunch INT, allMoney FLOAT, pererabotki FLOAT)"
         );
         SharedPreferences myPreferences
                 = PreferenceManager.getDefaultSharedPreferences(this);
@@ -90,18 +90,19 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    public void insertData(String date, int alltime, float allMoney) {
+    public void insertData(String date, int alltime, float allMoney, float pererabotki) {
 
         ContentValues row = new ContentValues();
         row.put("date", date);
         row.put("allTime", alltime);
         row.put("lunch", 0);
         row.put("allMoney", allMoney);
+        row.put("pererabotki", pererabotki);
         myDB.insert("shifts" + nowMonth, null, row);
 
     }
 
-    public int getAllMoney(String month, int i) {
+    public float getAllMoney(String month, int i) {
         int money = 0;
         if (i == 11) {
             Cursor myCursor =
@@ -142,6 +143,18 @@ public class MainActivity extends FragmentActivity {
         myCursor.close();
 
         return hours;
+    }
+
+    public float getAllPererabotki(String month) {
+        float pererabotki = 0;
+        Cursor myCursor =
+                myDB.rawQuery("select pererabotki from shifts" + month, null);
+        while (myCursor.moveToNext()) {
+            pererabotki = myCursor.getInt(0) + pererabotki;
+        }
+        myCursor.close();
+
+        return pererabotki;
     }
 
 

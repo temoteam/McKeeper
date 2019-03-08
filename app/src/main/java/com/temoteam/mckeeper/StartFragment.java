@@ -22,8 +22,9 @@ public class StartFragment extends Fragment {
 
     private int hours;
 
-    private int money11;
-    private int money26;
+    private float money11;
+    private float money26;
+    private float pererabotki;
 
     public StartFragment() {
         // Required empty public constructor
@@ -43,6 +44,12 @@ public class StartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         SharedPreferences myPreferences
                 = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        Date date = new Date();
+        String nowMonth = date.toString().split(" ")[1];
+        hours = ((MainActivity) getActivity()).getAllHours(nowMonth);
+        money11 = ((MainActivity) getActivity()).getAllMoney(nowMonth, 11);
+        money26 = ((MainActivity) getActivity()).getAllMoney(nowMonth, 26);
+        float pererabotki = ((MainActivity) getActivity()).getAllPererabotki(nowMonth);
         Button addShift = getView().findViewById(R.id.addShift);
         addShift.setOnClickListener(
                 new View.OnClickListener() {
@@ -53,13 +60,6 @@ public class StartFragment extends Fragment {
                 }
         );
 
-        Date date = new Date();
-        String nowMonth = date.toString().split(" ")[1];
-
-        hours = ((MainActivity) getActivity()).getAllHours(nowMonth);
-        money11 = ((MainActivity) getActivity()).getAllMoney(nowMonth, 11);
-        money26 = ((MainActivity) getActivity()).getAllMoney(nowMonth, 26);
-
 
         TextView textHours = getView().findViewById(R.id.textHours);
         TextView textMoneyAv = getView().findViewById(R.id.textMoneyAv);
@@ -67,9 +67,14 @@ public class StartFragment extends Fragment {
         int resID = getResources().getIdentifier(nowMonth, "integer", getActivity().getPackageName());
         //getActivity().getResources(R.integer.Jan);
 
-        textHours.setText("В " + nowMonth + " вы отработали:" + hours / 60 + " часов и " + hours % 60 + " минут. До переработок еще " + (getResources().getInteger(resID) - hours / 60) + "часов.");
+        if ((getResources().getInteger(resID)) - hours / 60 > 0) {
+            textHours.setText("В " + nowMonth + " вы отработали:" + hours / 60 + " часов и " + hours % 60 + " минут. До переработок еще " + (getResources().getInteger(resID) - hours / 60) + " часов.");
+        } else {
+            textHours.setText("В " + nowMonth + " вы отработали:" + hours / 60 + " часов и " + hours % 60 + " минут. Из них переработок " + (getResources().getInteger(resID) - hours / 60) * (-1) + "часов.");
+        }
+
         textMoneyAv.setText("В аванс придет: " + money26);
-        textMoneyZp.setText("В зарплату придет: " + money11);
+        textMoneyZp.setText("В зарплату придет: " + (money11 + pererabotki));
     }
 
 

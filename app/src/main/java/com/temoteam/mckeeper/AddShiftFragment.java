@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Date;
 
 
 /**
@@ -174,14 +177,36 @@ public class AddShiftFragment extends Fragment {
 
             SharedPreferences myPreferences
                     = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            Date date1 = new Date();
+            String nowMonth = date1.toString().split(" ")[1];
+            float hours = ((MainActivity) getActivity()).getAllHours(nowMonth);
+            int resID = getResources().getIdentifier(nowMonth, "integer", getActivity().getPackageName());
+
             double rate = (double) myPreferences.getInt("rate", 185) / 60;
             int allTime = allMinute + allHour * 60;
-            float allMoney = Float.parseFloat(allTime * rate + "");
+            float allMoney = 0;
+            float pererabotki = 0;
+            if (hours <= (getResources().getInteger(resID)) * 60) {
+                allMoney = (Float.parseFloat(allTime * rate * 0.87 + ""));
+            }
+
+            if (hours > (getResources().getInteger(resID)) * 60) {
+                allMoney = Float.parseFloat(allTime * rate * 0.87 + "");
+                if (hours - (getResources().getInteger(resID)) <= 2) {
+                    pererabotki = Float.parseFloat(allMoney * 0.5 + "");
+                }
+
+                if (hours - (getResources().getInteger(resID)) > 2) {
+                    pererabotki = allMoney;
+                }
+            }
+
+            Log.e("per", pererabotki + "");
 
             textAll.setText(date + " вы отработали " + allHour + " часов " + allMinute + " минут. И Заработали " + allMoney + " р.");
 
             if (i == 2) {
-                ((MainActivity) getActivity()).insertData(date, allTime, allMoney);
+                ((MainActivity) getActivity()).insertData(date, allTime, allMoney, pererabotki);
             }
         } else {
             Toast toast = Toast.makeText(getActivity(),
