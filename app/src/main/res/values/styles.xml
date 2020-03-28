@@ -1,8 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:ThemeOverlay.Material.Dark.ActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:colorPrimary">#FFC107</item>
+        <item name="android:colorPrimaryDark">#FF9800</item>
+        <item name="android:colorAccent">#E91E63</item>
     </style>
+
 
 </resources>

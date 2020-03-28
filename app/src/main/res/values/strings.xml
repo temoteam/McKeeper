@@ -16,6 +16,10 @@
     <string name="next">Next</string>
     <string name="number">Your number</string>
     <string name="addShift">Add shift</string>
+    <string name="welcomeText">Welcome to McKeeper</string>
 
-    <string name="text_info_fragment">Привет, это приложение создано для учета своих смен и ориентированно иссключительно на работников Макдоналдс. Оно учитывает нюансы учета часов и начисления зарплаты, существующие в нашей компании. Приложение пока что находится в очень сыром состоянии, но уже имеет свой базовый функционал, а именно, считает отработанные часы, высчитывает, сколько денег придет в аванс и зарплату, с учетом возможных переработок. Однако, конечно же, в нем могут встречаться ошибки и недоработки, которые я буду стараться по возможности исправить, поэтому прошу сообщать мне о них.</string>
+    <string name="text_info_fragment">Hi, this application is designed to account for their shifts and is exclusively focused on McDonald\'s employees. It takes into account the nuances of hours accounting and payroll existing in our company. The application is still in a very raw state, but already has its own basic functionality, namely, it counts the hours worked, calculates how much money will come in advance and salary, taking into account possible processing. However, of course, errors and omissions may occur in it, which I will try to correct as far as possible, so please inform me about them.</string>
+    <string name="hello_blank_fragment">Screen in developing</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -61,6 +61,7 @@ public class MainActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         android.app.FragmentTransaction fTrans = getFragmentManager().beginTransaction();
+
         if (id == R.id.action_info) {
 
             fTrans = getFragmentManager().beginTransaction();
@@ -69,6 +70,20 @@ public class MainActivity extends FragmentActivity {
             fTrans.commit();
         }
 
+        if (id == R.id.action_news) {
+
+            fTrans = getFragmentManager().beginTransaction();
+            fTrans.replace(R.id.container, new NewsFragment());
+            fTrans.addToBackStack(null);
+            fTrans.commit();
+        }
+        if (id == R.id.action_rasp) {
+
+            fTrans = getFragmentManager().beginTransaction();
+            fTrans.replace(R.id.container, new RaspFragment());
+            fTrans.addToBackStack(null);
+            fTrans.commit();
+        }
         return super.onOptionsItemSelected(item);
     }
 
