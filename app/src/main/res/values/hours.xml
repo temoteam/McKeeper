@@ -2,15 +2,15 @@
 <resources>
 
     <integer name="Jan">136</integer>
-    <integer name="Feb">159</integer>
-    <integer name="Mar">159</integer>
-    <integer name="Apr">175</integer>
-    <integer name="May">143</integer>
-    <integer name="Jun">151</integer>
+    <integer name="Feb">152</integer>
+    <integer name="Mar">152</integer>
+    <integer name="Apr">151</integer>
+    <integer name="May">135</integer>
+    <integer name="Jun">167</integer>
     <integer name="Jul">184</integer>
-    <integer name="Avg">176</integer>
-    <integer name="Sep">168</integer>
-    <integer name="Oct">184</integer>
-    <integer name="Nov">160</integer>
-    <integer name="Dec">175</integer>
+    <integer name="Avg">168</integer>
+    <integer name="Sep">176</integer>
+    <integer name="Oct">176</integer>
+    <integer name="Nov">159</integer>
+    <integer name="Dec">183</integer>
 </resources>
