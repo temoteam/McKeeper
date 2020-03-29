@@ -16,6 +16,7 @@ import java.util.Date;
 
 public class MainActivity extends FragmentActivity {
 
+    private static final String STATE_CURRENT_FRAGMENT = "state_current_fragment";
     private int k = 0;
     private StartFragment startFragment;
     private AddShiftFragment addShiftFragment;
@@ -41,6 +42,12 @@ public class MainActivity extends FragmentActivity {
         SharedPreferences myPreferences
                 = PreferenceManager.getDefaultSharedPreferences(this);
         int rate = myPreferences.getInt("rate", 0);
+
+        if (null != savedInstanceState) {
+            k = savedInstanceState.getInt(STATE_CURRENT_FRAGMENT, 0);
+            onNavigationItemSelected(k);
+        }
+
         if (rate == 0) {
 
             onNavigationItemSelected(3);
@@ -49,6 +56,14 @@ public class MainActivity extends FragmentActivity {
             onNavigationItemSelected(1);
         }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (k != 0) {
+            outState.putInt(STATE_CURRENT_FRAGMENT, k);
+        }
     }
 
     @Override
