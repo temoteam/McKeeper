@@ -20,6 +20,12 @@
 
     <string name="text_info_fragment">Hi, this application is designed to account for their shifts and is exclusively focused on McDonald\'s employees. It takes into account the nuances of hours accounting and payroll existing in our company. The application is still in a very raw state, but already has its own basic functionality, namely, it counts the hours worked, calculates how much money will come in advance and salary, taking into account possible processing. However, of course, errors and omissions may occur in it, which I will try to correct as far as possible, so please inform me about them.</string>
     <string name="hello_blank_fragment">Screen in developing</string>
+    <string name="screen_add_shift">Adding shift</string>
+    <string name="screen_info">Info</string>
+    <string name="screen_initial">Welcome to McKeeper</string>
+    <string name="screen_news">News</string>
+    <string name="screen_rasp">Timetable</string>
+    <string name="screen_start">Overview</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

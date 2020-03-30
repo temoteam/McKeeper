@@ -5,12 +5,13 @@ import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import java.util.Date;
 
@@ -42,6 +43,8 @@ public class StartFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle(getResources().getString(R.string.screen_start));
+
         SharedPreferences myPreferences
                 = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Date date = new Date();

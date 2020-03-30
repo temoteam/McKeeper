@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "880117503239",
+    "firebase_url": "https://mckeeper-d7141.firebaseio.com",
+    "project_id": "mckeeper-d7141",
+    "storage_bucket": "mckeeper-d7141.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880117503239:android:4f35d2fecbba86cc14e1a2",
+        "android_client_info": {
+          "package_name": "com.temoteam.mckeeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880117503239-1ncquaoara0oeif602138f6ehvufkasc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpHnUL9g5TAieeYgh93e3GIldiAAr9seo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880117503239-1ncquaoara0oeif602138f6ehvufkasc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

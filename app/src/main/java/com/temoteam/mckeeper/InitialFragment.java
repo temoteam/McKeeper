@@ -5,13 +5,14 @@ import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.annotation.Nullable;
 
 
 /**
@@ -36,6 +37,7 @@ public class InitialFragment extends Fragment {
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle(getResources().getString(R.string.screen_initial));
         //https://www.mcfamily.ru/c/portal/restaurants/list?locale=ru_RU
         Log.i("kek", "111");
 
