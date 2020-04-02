@@ -12,11 +12,13 @@ import com.temoteam.mckeeper.R;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
     private static final String TAG = "CustomAdapter";
-    private String[] mDataset;
+    private static String[] links;
+    private String[] titles;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public NewsAdapter(String[] myDataset) {
-        mDataset = myDataset;
+    public NewsAdapter(String[] myDataset, String[] links) {
+        titles = myDataset;
+        this.links = links;
     }
 
     // Create new views (invoked by the layout manager)
@@ -37,14 +39,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         Log.d(TAG, "Element " + position + " set.");
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.getTextView().setText(mDataset[position]);
+        holder.getTextView().setText(titles[position]);
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return titles.length;
     }
 
     // Provide a reference to the views for each data item
@@ -59,7 +61,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
+                    Log.d(TAG, "Element " + links[getAdapterPosition()] + " clicked.");
+
                 }
             });
             textView = (TextView) v.findViewById(R.id.textView);

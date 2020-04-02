@@ -37,7 +37,7 @@ public class PdfRendererBasicFragment extends Fragment implements View.OnClickLi
     /**
      * The filename of the PDF.
      */
-    private static final String FILENAME = "sample.pdf";
+    private static String filename = "";
 
     /**
      * File descriptor of the PDF.
@@ -74,7 +74,8 @@ public class PdfRendererBasicFragment extends Fragment implements View.OnClickLi
      */
     private int mPageIndex;
 
-    public PdfRendererBasicFragment() {
+    public PdfRendererBasicFragment(String filename) {
+        this.filename = filename;
     }
 
     @Override
@@ -136,11 +137,11 @@ public class PdfRendererBasicFragment extends Fragment implements View.OnClickLi
      */
     private void openRenderer(Context context) throws IOException {
         // In this sample, we read a PDF from the assets directory.
-        File file = new File(context.getCacheDir(), FILENAME);
+        File file = new File(context.getCacheDir(), filename);
         if (!file.exists()) {
             // Since PdfRenderer cannot handle the compressed asset file directly, we copy it into
             // the cache directory.
-            InputStream asset = context.getAssets().open(FILENAME);
+            InputStream asset = context.getAssets().open(filename);
             FileOutputStream output = new FileOutputStream(file);
             final byte[] buffer = new byte[1024];
             int size;

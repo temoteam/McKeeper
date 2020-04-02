@@ -11,9 +11,19 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.UnsupportedEncodingException;
 
 
 /**
@@ -22,7 +32,8 @@ import org.json.simple.parser.JSONParser;
 public class NewsFragment extends Fragment {
 
     public static JSONParser parser = new JSONParser();
-    protected String[] mDataset;
+    protected String[] titles;
+    protected String[] links;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -39,15 +50,27 @@ public class NewsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_news, container, false);
     }
 
+    public static String fixEncoding(String response) {
+        try {
+            byte[] u = response.toString().getBytes(
+                    "ISO-8859-1");
+            response = new String(u, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return response;
+    }
+
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle(getResources().getString(R.string.screen_news));
+
         try {
             getNews();
         } catch (Exception e) {
             Log.d("kek", e.toString());
         }
-
         recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
 
         // use this setting to improve performance if you know that changes
@@ -58,41 +81,53 @@ public class NewsFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        // specify an adapter (see also next example)
-        mAdapter = new com.temoteam.mckeeper.Adapters.NewsAdapter(mDataset);
-        recyclerView.setAdapter(mAdapter);
 
     }
 
     public void getNews() throws Exception {
-        String news_url = "http://home.temoteam.ru/mcd/news/news.json";
-        String feed = "{\n" +
-                "  \"array\": [\n" +
-                "    {\n" +
-                "      \"name\": \"Выпуск 10 - 11 марта\",\n" +
-                "      \"link\": \"http://home.temoteam.ru/mcd/news/Crew_News_10_2020_11.03.pdf\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"name\": \"Выпуск 11 - 18 марта\",\n" +
-                "      \"link\": \"http://home.temoteam.ru/mcd/news/Crew_News_11_2020_18.03.pdf\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"name\": \"Выпуск 12 - 24 марта\",\n" +
-                "      \"link\": \"http://home.temoteam.ru/mcd/news/Crew_News_12_2020_24.03.pdf\"\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}";
+        String url = "https://home.temoteam.ru/mcd/news/news.json";
 
-        Object obj = parser.parse(feed);
-        JSONObject jsonObject = (JSONObject) obj;
-        JSONArray jsonArray = (JSONArray) jsonObject.get("array");
-        mDataset = new String[jsonArray.size()];
-        Log.d("kek", jsonArray.size() + "");
-        for (int i = 0; i < jsonArray.size(); i++) {
-            mDataset[i] = (String) ((JSONObject) jsonArray.get(i)).get("name");
-        }
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        String utf8String = fixEncoding(response);
+
+                        Log.d("test", utf8String);
+
+                        Object obj = null;
+                        try {
+                            obj = parser.parse(utf8String);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        JSONObject jsonObject = (JSONObject) obj;
+                        JSONArray jsonArray = (JSONArray) jsonObject.get("array");
+                        titles = new String[jsonArray.size()];
+                        links = new String[jsonArray.size()];
+                        Log.d("kek", jsonArray.size() + "");
+                        for (int i = 0; i < jsonArray.size(); i++) {
+                            titles[i] = (String) ((JSONObject) jsonArray.get(i)).get("name");
+                            links[i] = (String) ((JSONObject) jsonArray.get(i)).get("link");
+                        }
+
+                        mAdapter = new com.temoteam.mckeeper.Adapters.NewsAdapter(titles, links);
+                        recyclerView.setAdapter(mAdapter);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("test", error.toString());
+            }
+        });
+        queue.add(stringRequest);
+
 
     }
-
 
 }
