@@ -115,7 +115,7 @@ public class NewsFragment extends Fragment {
                             links[i] = (String) ((JSONObject) jsonArray.get(i)).get("link");
                         }
 
-                        mAdapter = new com.temoteam.mckeeper.Adapters.NewsAdapter(titles, links);
+                        mAdapter = new com.temoteam.mckeeper.Adapters.NewsAdapter(titles, links, getActivity());
                         recyclerView.setAdapter(mAdapter);
 
                     }

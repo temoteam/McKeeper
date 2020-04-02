@@ -1,5 +1,9 @@
 package com.temoteam.mckeeper.Adapters;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +12,20 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.temoteam.mckeeper.PdfShowWithGoogle;
 import com.temoteam.mckeeper.R;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
     private static final String TAG = "CustomAdapter";
     private static String[] links;
     private String[] titles;
+    private static Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public NewsAdapter(String[] myDataset, String[] links) {
+    public NewsAdapter(String[] myDataset, String[] links, Context context) {
         titles = myDataset;
         this.links = links;
+        this.context = context;
     }
 
     // Create new views (invoked by the layout manager)
@@ -49,6 +56,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         return titles.length;
     }
 
+    private static void showNewsPdf(String link) {
+        Fragment pdf = new PdfShowWithGoogle();
+        Bundle bundle = new Bundle();
+        bundle.putString("link", link);
+        pdf.setArguments(bundle);
+        android.app.FragmentTransaction fTrans;
+        fTrans = ((Activity) context).getFragmentManager().beginTransaction();
+        fTrans.replace(R.id.container, pdf);
+        fTrans.addToBackStack(null);
+        fTrans.commit();
+    }
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -62,7 +81,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "Element " + links[getAdapterPosition()] + " clicked.");
-
+                    showNewsPdf(links[getAdapterPosition()]);
                 }
             });
             textView = (TextView) v.findViewById(R.id.textView);
