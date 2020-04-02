@@ -10,23 +10,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.txusballesteros.widgets.FitChart
+            android:id="@+id/fitChart"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            app:animationMode="overdraw"
+            app:backStrokeColor="#FFC107"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeSize="15dp"
+            app:valueStrokeColor="#9C27B0" />
 
         <TextView
             android:id="@+id/textHours"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
+            android:layout_marginEnd="16dp"
             android:textSize="15dp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/fitChart" />
 
         <TextView
             android:id="@+id/textMoneyAv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textHours" />
 
@@ -34,8 +55,11 @@
             android:id="@+id/textMoneyZp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textMoneyAv" />
 
@@ -44,10 +68,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/addShift"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textMoneyZp" />
+
+        <TextView
+            android:id="@+id/textOverView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="12pt"
+            app:layout_constraintBottom_toBottomOf="@+id/fitChart"
+            app:layout_constraintEnd_toEndOf="@+id/fitChart"
+            app:layout_constraintStart_toStartOf="@+id/fitChart"
+            app:layout_constraintTop_toTopOf="@+id/fitChart" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

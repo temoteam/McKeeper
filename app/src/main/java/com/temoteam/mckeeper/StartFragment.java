@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+
+import com.txusballesteros.widgets.FitChart;
 
 import java.util.Date;
 
@@ -67,6 +70,7 @@ public class StartFragment extends Fragment {
         TextView textHours = getView().findViewById(R.id.textHours);
         TextView textMoneyAv = getView().findViewById(R.id.textMoneyAv);
         TextView textMoneyZp = getView().findViewById(R.id.textMoneyZp);
+        TextView tv = getView().findViewById(R.id.textOverView);
         int resID = getResources().getIdentifier(nowMonth, "integer", getActivity().getPackageName());
         //getActivity().getResources(R.integer.Jan);
 
@@ -76,6 +80,13 @@ public class StartFragment extends Fragment {
             textHours.setText("В " + nowMonth + " вы отработали:" + hours / 60 + " часов и " + hours % 60 + " минут. Из них переработок " + (getResources().getInteger(resID) - hours / 60) * (-1) + "часов.");
         }
 
+        final FitChart fitChart = (FitChart) getActivity().findViewById(R.id.fitChart);
+        fitChart.setMinValue(1);
+        fitChart.setMaxValue(getResources().getInteger(resID) * 60);
+        fitChart.setValue(hours);
+
+        Log.d("lal", "Max" + fitChart.getMaxValue() + "Min" + fitChart.getMinValue() + "Now" + hours);
+        tv.setText(hours / 60 + "/" + getResources().getInteger(resID));
         textMoneyAv.setText("В аванс придет: " + money26);
         textMoneyZp.setText("В зарплату придет: " + (money11 + pererabotki));
     }
