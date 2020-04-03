@@ -4,10 +4,25 @@
     android:layout_height="72dp"
     android:gravity="center_vertical">
 
+    <View
+
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_gravity="top"
+        android:background="@android:color/darker_gray" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="left|center_vertical"
         android:text="Error"
+        android:textAlignment="gravity"
         android:textSize="25sp" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/darker_gray" />
 </FrameLayout>

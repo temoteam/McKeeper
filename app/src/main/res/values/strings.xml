@@ -27,5 +27,10 @@
     <string name="screen_rasp">Timetable</string>
     <string name="screen_start">Overview</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="title_activity_start">StartActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

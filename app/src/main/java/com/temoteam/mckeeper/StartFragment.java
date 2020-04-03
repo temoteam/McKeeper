@@ -1,7 +1,6 @@
 package com.temoteam.mckeeper;
 
 
-import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.txusballesteros.widgets.FitChart;
 
@@ -52,10 +52,10 @@ public class StartFragment extends Fragment {
                 = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Date date = new Date();
         String nowMonth = date.toString().split(" ")[1];
-        hours = ((MainActivity) getActivity()).getAllHours(nowMonth);
-        money11 = ((MainActivity) getActivity()).getAllMoney(nowMonth, 11);
-        money26 = ((MainActivity) getActivity()).getAllMoney(nowMonth, 26);
-        float pererabotki = ((MainActivity) getActivity()).getAllPererabotki(nowMonth);
+        hours = ((StartActivity) getActivity()).getAllHours(nowMonth);
+        money11 = ((StartActivity) getActivity()).getAllMoney(nowMonth, 11);
+        money26 = ((StartActivity) getActivity()).getAllMoney(nowMonth, 26);
+        float pererabotki = ((StartActivity) getActivity()).getAllPererabotki(nowMonth);
         Button addShift = getView().findViewById(R.id.addShift);
         addShift.setOnClickListener(
                 new View.OnClickListener() {

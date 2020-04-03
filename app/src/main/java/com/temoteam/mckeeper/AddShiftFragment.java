@@ -180,7 +180,7 @@ public class AddShiftFragment extends Fragment {
                     = PreferenceManager.getDefaultSharedPreferences(getActivity());
             Date date1 = new Date();
             String nowMonth = date1.toString().split(" ")[1];
-            float hours = ((MainActivity) getActivity()).getAllHours(nowMonth);
+            float hours = ((StartActivity) getActivity()).getAllHours(nowMonth);
             int resID = getResources().getIdentifier(nowMonth, "integer", getActivity().getPackageName());
 
             double rate = (double) myPreferences.getInt("rate", 185) / 60;
@@ -207,7 +207,7 @@ public class AddShiftFragment extends Fragment {
             textAll.setText(date + " вы отработали " + allHour + " часов " + allMinute + " минут. И Заработали " + allMoney + " р.");
 
             if (i == 2) {
-                ((MainActivity) getActivity()).insertData(date, allTime, allMoney, pererabotki);
+                ((StartActivity) getActivity()).insertData(date, allTime, allMoney, pererabotki);
             }
         } else {
             Toast toast = Toast.makeText(getActivity(),
