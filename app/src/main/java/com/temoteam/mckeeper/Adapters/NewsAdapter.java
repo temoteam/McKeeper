@@ -1,13 +1,5 @@
 package com.temoteam.mckeeper.Adapters;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import android.app.Activity;
-
-import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.temoteam.mckeeper.PdfShowWithGoogle;
@@ -24,17 +20,18 @@ import com.temoteam.mckeeper.R;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
     private static final String TAG = "CustomAdapter";
     private static String[] links;
-    private String[] titles;
+    private final String[] titles;
     private static Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public NewsAdapter(String[] myDataset, String[] links, Context context) {
         titles = myDataset;
-        this.links = links;
-        this.context = context;
+        NewsAdapter.links = links;
+        NewsAdapter.context = context;
     }
 
     // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
     public NewsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                        int viewType) {
@@ -42,8 +39,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.news_item, parent, false);
 
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        return new MyViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -74,12 +70,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         fTrans.commit();
     }
 
-
+    @SuppressWarnings("private")
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         private final TextView textView;
 
-        public MyViewHolder(View v) {
+        MyViewHolder(View v) {
             super(v);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -88,10 +84,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
                     showNewsPdf(links[getAdapterPosition()]);
                 }
             });
-            textView = (TextView) v.findViewById(R.id.textView);
+            textView = v.findViewById(R.id.textView);
         }
 
-        public TextView getTextView() {
+        TextView getTextView() {
             return textView;
         }
     }

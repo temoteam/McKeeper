@@ -1,7 +1,5 @@
 package com.temoteam.mckeeper;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -11,9 +9,9 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -24,20 +22,16 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Date;
+import java.util.Objects;
 
 import static androidx.navigation.Navigation.findNavController;
 
 public class StartActivity extends AppCompatActivity {
 
 
-    private static final String STATE_CURRENT_FRAGMENT = "state_current_fragment";
-    private int k = 0;
-    private StartFragment startFragment;
-    private AddShiftFragment addShiftFragment;
-    private InitialFragment initialFragment;
     private String nowMonth;
     private SQLiteDatabase myDB;
-    NavController navController;
+    private NavController navController;
 
 
     @Override
@@ -60,9 +54,6 @@ public class StartActivity extends AppCompatActivity {
         if (rate == 0) {
 
             onNavigationItemSelected(3);
-        } else {
-
-           // onNavigationItemSelected(1);
         }
 
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -75,7 +66,7 @@ public class StartActivity extends AppCompatActivity {
                         }
 
                         // Get new Instance ID token
-                        String token = task.getResult().getToken();
+                        String token = Objects.requireNonNull(task.getResult()).getToken();
 
                         // Log and toast
                         Log.d("TAG", token);
@@ -136,11 +127,10 @@ public class StartActivity extends AppCompatActivity {
         if (i == 11) {
             Cursor myCursor =
                     myDB.rawQuery("select date, allMoney from shifts" + month, null);
-            int k = 0;
+
             while (myCursor.moveToNext()) {
                 int z = Integer.parseInt(myCursor.getString(0).split("\\.")[0]);
                 if (z > 14) {
-                    Log.i("kekek", myCursor.getString(1));
                     money = myCursor.getInt(1) + money;
                 }
             }
@@ -153,7 +143,6 @@ public class StartActivity extends AppCompatActivity {
             while (myCursor.moveToNext()) {
                 int z = Integer.parseInt(myCursor.getString(0).split("\\.")[0]);
                 if (z < 15) {
-                    Log.i("kekek", myCursor.getString(1));
                     money = myCursor.getInt(1) + money;
                 }
             }

@@ -8,13 +8,16 @@ import android.text.format.DateFormat;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
+import java.util.Objects;
 
-public class DialogTimeFragment extends DialogFragment
+class DialogTimeFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current time as the default values for the picker
@@ -33,7 +36,7 @@ public class DialogTimeFragment extends DialogFragment
 
     private void setTime(int hourOfDay, int minute) {
 
-        EditText editTimeStart = getActivity().findViewById(R.id.editTimeStart);
+        EditText editTimeStart = Objects.requireNonNull(getActivity()).findViewById(R.id.editTimeStart);
         EditText editTimeEnd = getActivity().findViewById(R.id.editTimeEnd);
 
         if (editTimeStart.getText().toString().equals("")) {

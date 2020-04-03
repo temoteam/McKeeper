@@ -14,15 +14,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 /**
- * This fragment has a big {@ImageView} that shows PDF pages, and 2
+ * This fragment has a big {ImageView} that shows PDF pages, and 2
  * {@link android.widget.Button}s to move between pages. We use a
  * {@link android.graphics.pdf.PdfRenderer} to render PDF pages as
  * {@link android.graphics.Bitmap}s.
@@ -75,7 +77,7 @@ public class PdfRendererBasicFragment extends Fragment implements View.OnClickLi
     private int mPageIndex;
 
     public PdfRendererBasicFragment(String filename) {
-        this.filename = filename;
+        PdfRendererBasicFragment.filename = filename;
     }
 
     @Override
@@ -85,7 +87,7 @@ public class PdfRendererBasicFragment extends Fragment implements View.OnClickLi
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Retain view references.
         mImageView = view.findViewById(R.id.image);
@@ -106,7 +108,7 @@ public class PdfRendererBasicFragment extends Fragment implements View.OnClickLi
     public void onStart() {
         super.onStart();
         try {
-            openRenderer(getActivity());
+            openRenderer(Objects.requireNonNull(getActivity()));
             showPage(mPageIndex);
         } catch (IOException e) {
             e.printStackTrace();
@@ -125,7 +127,7 @@ public class PdfRendererBasicFragment extends Fragment implements View.OnClickLi
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (null != mCurrentPage) {
             outState.putInt(STATE_CURRENT_PAGE_INDEX, mCurrentPage.getIndex());
@@ -208,7 +210,7 @@ public class PdfRendererBasicFragment extends Fragment implements View.OnClickLi
         int pageCount = mPdfRenderer.getPageCount();
         mButtonPrevious.setEnabled(0 != index);
         mButtonNext.setEnabled(index + 1 < pageCount);
-        getActivity().setTitle(getString(R.string.app_name, index + 1, pageCount));
+        Objects.requireNonNull(getActivity()).setTitle(getString(R.string.app_name, index + 1, pageCount));
     }
 
     @Override

@@ -7,13 +7,16 @@ import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
+import java.util.Objects;
 
-public class DialogDateFragment extends DialogFragment
+class DialogDateFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current date as the default date in the picker
@@ -23,7 +26,7 @@ public class DialogDateFragment extends DialogFragment
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        return new DatePickerDialog(Objects.requireNonNull(getActivity()), this, year, month, day);
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -32,7 +35,7 @@ public class DialogDateFragment extends DialogFragment
     }
 
     private void setDate(int year, int month, int day) {
-        EditText editDate = getActivity().findViewById(R.id.editDate);
+        EditText editDate = Objects.requireNonNull(getActivity()).findViewById(R.id.editDate);
         month++;
         String dayStr;
         String monthStr;

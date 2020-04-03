@@ -10,8 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.Objects;
 
 
 public class InfoFragment extends Fragment {
@@ -31,9 +34,9 @@ public class InfoFragment extends Fragment {
 
     }
 
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle(getResources().getString(R.string.screen_info));
+        Objects.requireNonNull(getActivity()).setTitle(getResources().getString(R.string.screen_info));
         Button mail = view.findViewById(R.id.button_mail);
         Button tg = view.findViewById(R.id.button_tg);
         Button vk = view.findViewById(R.id.button_vk);
@@ -43,7 +46,7 @@ public class InfoFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        aaaa();
+                        email();
                     }
                 }
         );
@@ -52,7 +55,7 @@ public class InfoFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cccc();
+                        tg();
                     }
                 }
         );
@@ -61,13 +64,13 @@ public class InfoFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        bbbb();
+                        vk();
                     }
                 }
         );
     }
 
-    private void aaaa() {
+    private void email() {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setData(Uri.parse("mailto:nesenenko@temoteam.ru"));
         try {
@@ -77,14 +80,14 @@ public class InfoFragment extends Fragment {
         }
     }
 
-    private void bbbb() {
+    private void vk() {
         String url = "https://vk.com/id241199506";
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
     }
 
-    private void cccc() {
+    private void tg() {
         String url = "https://t.me/lohness";
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));

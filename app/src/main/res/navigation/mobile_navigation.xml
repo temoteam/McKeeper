@@ -9,7 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.temoteam.mckeeper.StartFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_navigation_home_to_navigation_news"
             app:destination="@id/navigation_news" />

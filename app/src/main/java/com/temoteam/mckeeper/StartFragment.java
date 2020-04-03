@@ -1,15 +1,14 @@
 package com.temoteam.mckeeper;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,18 +16,13 @@ import androidx.fragment.app.Fragment;
 import com.txusballesteros.widgets.FitChart;
 
 import java.util.Date;
+import java.util.Objects;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class StartFragment extends Fragment {
-
-    private int hours;
-
-    private float money11;
-    private float money26;
-    private float pererabotki;
 
     public StartFragment() {
         // Required empty public constructor
@@ -44,24 +38,23 @@ public class StartFragment extends Fragment {
 
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle(getResources().getString(R.string.screen_start));
+        Objects.requireNonNull(getActivity()).setTitle(getResources().getString(R.string.screen_start));
 
-        SharedPreferences myPreferences
-                = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
         Date date = new Date();
         String nowMonth = date.toString().split(" ")[1];
-        hours = ((StartActivity) getActivity()).getAllHours(nowMonth);
-        money11 = ((StartActivity) getActivity()).getAllMoney(nowMonth, 11);
-        money26 = ((StartActivity) getActivity()).getAllMoney(nowMonth, 26);
+        int hours = ((StartActivity) getActivity()).getAllHours(nowMonth);
+        float money11 = ((StartActivity) getActivity()).getAllMoney(nowMonth, 11);
+        float money26 = ((StartActivity) getActivity()).getAllMoney(nowMonth, 26);
         float pererabotki = ((StartActivity) getActivity()).getAllPererabotki(nowMonth);
-        Button addShift = getView().findViewById(R.id.addShift);
+        Button addShift = Objects.requireNonNull(getView()).findViewById(R.id.addShift);
         addShift.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ((StartActivity) getActivity()).onNavigationItemSelected(2);
+                        ((StartActivity) Objects.requireNonNull(getActivity())).onNavigationItemSelected(2);
                     }
                 }
         );
@@ -80,7 +73,7 @@ public class StartFragment extends Fragment {
             textHours.setText("В " + nowMonth + " вы отработали:" + hours / 60 + " часов и " + hours % 60 + " минут. Из них переработок " + (getResources().getInteger(resID) - hours / 60) * (-1) + "часов.");
         }
 
-        final FitChart fitChart = (FitChart) getActivity().findViewById(R.id.fitChart);
+        final FitChart fitChart = getActivity().findViewById(R.id.fitChart);
         fitChart.setMinValue(1);
         fitChart.setMaxValue(getResources().getInteger(resID) * 60);
         fitChart.setValue(hours);

@@ -1,8 +1,6 @@
 package com.temoteam.mckeeper;
 
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -17,10 +15,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import java.util.Date;
+import java.util.Objects;
 
 
 /**
@@ -28,15 +29,6 @@ import java.util.Date;
  */
 public class AddShiftFragment extends Fragment {
 
-
-    private String date;
-
-    private int startHour;
-    private int startMinute;
-    private int endHour;
-    private int endMinute;
-    private int allHour;
-    private int allMinute;
 
     private EditText editDate;
     private EditText startTime;
@@ -46,8 +38,6 @@ public class AddShiftFragment extends Fragment {
     private RadioButton p1;
     private RadioButton p2;
     private TextView textAll;
-    private Button recount;
-    private Button save;
 
 
     public AddShiftFragment() {
@@ -64,16 +54,16 @@ public class AddShiftFragment extends Fragment {
     }
 
 
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle(getResources().getString(R.string.screen_add_shift));
-        editDate = getView().findViewById(R.id.editDate);
+        Objects.requireNonNull(getActivity()).setTitle(getResources().getString(R.string.screen_add_shift));
+        editDate = Objects.requireNonNull(getView()).findViewById(R.id.editDate);
         editDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment dateFragment = new DialogDateFragment();
-                dateFragment.show(((StartActivity) getActivity()).getSupportFragmentManager(), "datePicker");
+                dateFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "datePicker");
             }
         });
 
@@ -82,7 +72,7 @@ public class AddShiftFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DialogFragment timeFragment = new DialogTimeFragment();
-                timeFragment.show(((StartActivity) getActivity()).getSupportFragmentManager(), "timePicker1");
+                timeFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "timePicker1");
             }
         });
 
@@ -92,7 +82,7 @@ public class AddShiftFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DialogFragment timeFragment = new DialogTimeFragment();
-                timeFragment.show(((StartActivity) getActivity()).getSupportFragmentManager(), "timePicker1");
+                timeFragment.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "timePicker1");
             }
         });
 
@@ -101,11 +91,11 @@ public class AddShiftFragment extends Fragment {
         p1 = getView().findViewById(R.id.radioButton);
         p2 = getView().findViewById(R.id.radioButton2);
         textAll = getView().findViewById(R.id.textAll);
-        recount = getView().findViewById(R.id.recount);
-        save = getView().findViewById(R.id.buttonConfirm);
+        Button recount = getView().findViewById(R.id.recount);
+        Button save = getView().findViewById(R.id.buttonConfirm);
 
         DialogFragment dateFragment = new DialogDateFragment();
-        dateFragment.show(((StartActivity) getActivity()).getSupportFragmentManager(), "datePicker");
+        dateFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
 
 
         recount.setOnClickListener(
@@ -122,7 +112,7 @@ public class AddShiftFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         doRecount(2);
-                        ((StartActivity) getActivity()).onNavigationItemSelected(1);
+                        ((StartActivity) Objects.requireNonNull(getActivity())).onNavigationItemSelected(1);
 
 
                     }
@@ -135,18 +125,18 @@ public class AddShiftFragment extends Fragment {
     private void doRecount(int i) {
         if (!(editDate.getText().toString().equals("")) && !(startTime.getText().toString().equals("")) && !(endTime.getText().toString().equals(""))) {
 
-            date = editDate.getText().toString();
-            startHour = Integer.parseInt(startTime.getText().toString().split(":")[0]);
-            startMinute = Integer.parseInt(startTime.getText().toString().split(":")[1]);
-            endHour = Integer.parseInt(endTime.getText().toString().split(":")[0]);
-            endMinute = Integer.parseInt(endTime.getText().toString().split(":")[1]);
-            allHour = endHour - startHour;
+            String date = editDate.getText().toString();
+            int startHour = Integer.parseInt(startTime.getText().toString().split(":")[0]);
+            int startMinute = Integer.parseInt(startTime.getText().toString().split(":")[1]);
+            int endHour = Integer.parseInt(endTime.getText().toString().split(":")[0]);
+            int endMinute = Integer.parseInt(endTime.getText().toString().split(":")[1]);
+            int allHour = endHour - startHour;
 
             if (allHour < 0) {
                 allHour = 24 + allHour;
             }
 
-            allMinute = endMinute - startMinute;
+            int allMinute = endMinute - startMinute;
 
             if (allMinute < 0) {
                 allHour--;
@@ -181,7 +171,7 @@ public class AddShiftFragment extends Fragment {
                     = PreferenceManager.getDefaultSharedPreferences(getActivity());
             Date date1 = new Date();
             String nowMonth = date1.toString().split(" ")[1];
-            float hours = ((StartActivity) getActivity()).getAllHours(nowMonth);
+            float hours = ((StartActivity) Objects.requireNonNull(getActivity())).getAllHours(nowMonth);
             int resID = getResources().getIdentifier(nowMonth, "integer", getActivity().getPackageName());
 
             double rate = (double) myPreferences.getInt("rate", 185) / 60;

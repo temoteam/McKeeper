@@ -1,23 +1,23 @@
 package com.temoteam.mckeeper;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import java.util.Objects;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PdfShowWithGoogle extends Fragment {
-    WebView pdfWebView;
 
     public PdfShowWithGoogle() {
         // Required empty public constructor
@@ -32,14 +32,13 @@ public class PdfShowWithGoogle extends Fragment {
     }
 
     @Override
-    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
-        String link = getArguments().getString("link");
-        pdfWebView = getActivity().findViewById(R.id.pdfWebView);
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        String link = Objects.requireNonNull(getArguments()).getString("link");
+        WebView pdfWebView = Objects.requireNonNull(getActivity()).findViewById(R.id.pdfWebView);
         pdfWebView.getSettings().setJavaScriptEnabled(true);
         final String doc = "https://docs.google.com/viewer?url=" + link;
         //doc = "https://vk.com";
         pdfWebView.loadUrl(doc);
-        Log.d("keke", doc);
         pdfWebView.reload();
 
 
@@ -48,7 +47,6 @@ public class PdfShowWithGoogle extends Fragment {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(doc);
 
-                Log.d("kekeke", doc);
 
 
                 return true;

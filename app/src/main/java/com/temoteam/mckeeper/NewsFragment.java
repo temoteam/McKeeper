@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,7 +24,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 
 /**
@@ -31,12 +33,11 @@ import java.io.UnsupportedEncodingException;
  */
 public class NewsFragment extends Fragment {
 
-    public static JSONParser parser = new JSONParser();
-    protected String[] titles;
-    protected String[] links;
+    private static final JSONParser parser = new JSONParser();
+    private String[] titles;
+    private String[] links;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -50,44 +51,39 @@ public class NewsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_news, container, false);
     }
 
-    public static String fixEncoding(String response) {
-        try {
-            byte[] u = response.toString().getBytes(
-                    "ISO-8859-1");
-            response = new String(u, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
-        }
+    private static String fixEncoding(String response) {
+        byte[] u = response.getBytes(
+                StandardCharsets.ISO_8859_1);
+        response = new String(u, StandardCharsets.UTF_8);
         return response;
     }
 
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle(getResources().getString(R.string.screen_news));
+        Objects.requireNonNull(getActivity()).setTitle(getResources().getString(R.string.screen_news));
 
         try {
             getNews();
         } catch (Exception e) {
             Log.d("kek", e.toString());
         }
-        recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
+        recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
 
     }
 
-    public void getNews() throws Exception {
+    private void getNews() {
         String url = "https://home.temoteam.ru/mcd/news/news.json";
 
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(getActivity()));
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -106,8 +102,8 @@ public class NewsFragment extends Fragment {
                             e.printStackTrace();
                         }
                         JSONObject jsonObject = (JSONObject) obj;
-                        JSONArray jsonArray = (JSONArray) jsonObject.get("array");
-                        titles = new String[jsonArray.size()];
+                        JSONArray jsonArray = (JSONArray) Objects.requireNonNull(jsonObject).get("array");
+                        titles = new String[Objects.requireNonNull(jsonArray).size()];
                         links = new String[jsonArray.size()];
                         Log.d("kek", jsonArray.size() + "");
                         for (int i = 0; i < jsonArray.size(); i++) {

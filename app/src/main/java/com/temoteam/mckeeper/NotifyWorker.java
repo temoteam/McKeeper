@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-public class NotifyWorker extends Worker {
+class NotifyWorker extends Worker {
 
     private static final String TAG = "MyWorker";
 
