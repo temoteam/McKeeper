@@ -1,7 +1,13 @@
 package com.temoteam.mckeeper.Adapters;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import android.app.Activity;
-import android.app.Fragment;
+
+import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,16 +67,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         Bundle bundle = new Bundle();
         bundle.putString("link", link);
         pdf.setArguments(bundle);
-        android.app.FragmentTransaction fTrans;
-        fTrans = ((Activity) context).getFragmentManager().beginTransaction();
-        fTrans.replace(R.id.container, pdf);
+        FragmentTransaction fTrans;
+        fTrans = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+        fTrans.replace(R.id.nav_host_fragment, pdf);
         fTrans.addToBackStack(null);
         fTrans.commit();
     }
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         private final TextView textView;

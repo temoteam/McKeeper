@@ -1,7 +1,9 @@
 package com.temoteam.mckeeper;
 
 
-import android.app.Fragment;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,12 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.Nullable;
-
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class InitialFragment extends Fragment {
     private EditText editRest;
     private EditText editRate;
@@ -67,7 +63,7 @@ public class InitialFragment extends Fragment {
 
 
                         }
-                        ((MainActivity) getActivity()).onNavigationItemSelected(1);
+                        ((StartActivity) getActivity()).onNavigationItemSelected(1);
                     }
                 }
         );

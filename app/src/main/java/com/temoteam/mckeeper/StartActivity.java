@@ -1,5 +1,7 @@
 package com.temoteam.mckeeper;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -7,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -14,9 +17,15 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Date;
+
+import static androidx.navigation.Navigation.findNavController;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -28,6 +37,7 @@ public class StartActivity extends AppCompatActivity {
     private InitialFragment initialFragment;
     private String nowMonth;
     private SQLiteDatabase myDB;
+    NavController navController;
 
 
     @Override
@@ -47,18 +57,67 @@ public class StartActivity extends AppCompatActivity {
                 = PreferenceManager.getDefaultSharedPreferences(this);
         int rate = myPreferences.getInt("rate", 0);
 
+        if (rate == 0) {
 
+            onNavigationItemSelected(3);
+        } else {
+
+           // onNavigationItemSelected(1);
+        }
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("TAG", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        Log.d("TAG", token);
+                        Toast.makeText(StartActivity.this, token, Toast.LENGTH_SHORT).show();
+                    }
+                });
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_news, R.id.navigation_timetable, R.id.navigation_info)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
     }
 
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() != 0) {
+            getFragmentManager().popBackStack();
+        }
+    }
+
+    public void onNavigationItemSelected(int item) {
+
+
+        if (item == 1) {
+
+            navController.navigate(R.id.action_navigation_init_to_navigation_home);
+
+        } else if (item == 2) {
+            navController.navigate(R.id.action_navigation_home_to_navigation_addShift);
+
+        } else if (item == 3) {
+            navController.navigate(R.id.action_navigation_home_to_navigation_init);
+
+        }
+
+
+    }
 
     public void insertData(String date, int alltime, float allMoney, float pererabotki) {
 

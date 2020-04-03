@@ -1,7 +1,8 @@
 package com.temoteam.mckeeper;
 
 
-import android.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,7 +17,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Date;
@@ -72,7 +73,7 @@ public class AddShiftFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DialogFragment dateFragment = new DialogDateFragment();
-                dateFragment.show(((MainActivity) getActivity()).getSupportFragmentManager(), "datePicker");
+                dateFragment.show(((StartActivity) getActivity()).getSupportFragmentManager(), "datePicker");
             }
         });
 
@@ -81,7 +82,7 @@ public class AddShiftFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DialogFragment timeFragment = new DialogTimeFragment();
-                timeFragment.show(((MainActivity) getActivity()).getSupportFragmentManager(), "timePicker1");
+                timeFragment.show(((StartActivity) getActivity()).getSupportFragmentManager(), "timePicker1");
             }
         });
 
@@ -91,7 +92,7 @@ public class AddShiftFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DialogFragment timeFragment = new DialogTimeFragment();
-                timeFragment.show(((MainActivity) getActivity()).getSupportFragmentManager(), "timePicker1");
+                timeFragment.show(((StartActivity) getActivity()).getSupportFragmentManager(), "timePicker1");
             }
         });
 
@@ -104,7 +105,7 @@ public class AddShiftFragment extends Fragment {
         save = getView().findViewById(R.id.buttonConfirm);
 
         DialogFragment dateFragment = new DialogDateFragment();
-        dateFragment.show(((MainActivity) getActivity()).getSupportFragmentManager(), "datePicker");
+        dateFragment.show(((StartActivity) getActivity()).getSupportFragmentManager(), "datePicker");
 
 
         recount.setOnClickListener(
@@ -121,7 +122,7 @@ public class AddShiftFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         doRecount(2);
-                        ((MainActivity) getActivity()).onNavigationItemSelected(1);
+                        ((StartActivity) getActivity()).onNavigationItemSelected(1);
 
 
                     }

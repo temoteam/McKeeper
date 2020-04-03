@@ -9,13 +9,43 @@
         android:id="@+id/navigation_home"
         android:name="com.temoteam.mckeeper.StartFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_news"
+            app:destination="@id/navigation_news" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_timetable"
+            app:destination="@id/navigation_timetable" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_addShift"
+            app:destination="@id/navigation_addShift" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_info"
+            app:destination="@id/navigation_info" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_init"
+            app:destination="@id/navigation_init" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_init"
+        android:name="com.temoteam.mckeeper.InitialFragment"
+        android:label="@string/screen_info"
+        tools:layout="@layout/fragment_initial" >
+        <action
+            android:id="@+id/action_navigation_init_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_news"
         android:name="com.temoteam.mckeeper.NewsFragment"
         android:label="@string/screen_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_navigation_news_to_navigation_pdfRenderGoogle"
+            app:destination="@id/navigation_pdfRenderGoogle" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_timetable"
@@ -28,4 +58,20 @@
         android:name="com.temoteam.mckeeper.InfoFragment"
         android:label="@string/screen_info"
         tools:layout="@layout/fragment_info" />
+
+    <fragment
+        android:id="@+id/navigation_addShift"
+        android:name="com.temoteam.mckeeper.AddShiftFragment"
+        android:label="@string/screen_info"
+        tools:layout="@layout/fragment_add_shift" >
+        <action
+            android:id="@+id/action_navigation_addShift_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_pdfRenderGoogle"
+        android:name="com.temoteam.mckeeper.PdfShowWithGoogle"
+        android:label="@string/screen_info"
+        tools:layout="@layout/fragment_pdf_show_with_google" />
 </navigation>
